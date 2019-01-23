@@ -29,11 +29,29 @@ class UsersComponent extends Component {
         })
     }
 
+    onUpdateUser = (user) => {
+        // filter out the users list with the user that is being curently updated
+        const userList = this.state.userData.filter(u => u.id !== user.id); 
+        this.setState({
+            edit: false,
+            //update users list with the filtered list + add the updated user
+            userData: [...userList, user]
+        })
+    }
+
+    onCancelUpdateUser = () => {
+        //just switch boolean variable edit to false to display the addUser component (condition for it is in render method)
+        this.setState({edit: false})
+    }
+    // TODO: find solution to :
+    // state does not update when clicked edit for different users
     editUser = (data) => {
-        console.log(data);
-        // this.setState({
-        //     edit: true, 
-        // })
+        this.setState({
+            // set edit variable to true so the condition inside the render method is met accordingly
+            edit: true,
+            // update the user object inside the state with the user sent from edit button 
+            user: data
+        })
     }
 
     deleteUser = (id) => {
@@ -52,7 +70,7 @@ class UsersComponent extends Component {
                         {this.state.edit ? (
                             <div>
                                 <h2>Edit user</h2>
-                                <EditUserComponent></EditUserComponent>
+                                <EditUserComponent onUpdateUser={this.onUpdateUser} onCancelUpdateUser={this.onCancelUpdateUser} user={this.state.user}></EditUserComponent>
                             </div>
                         ) : 
                         (
