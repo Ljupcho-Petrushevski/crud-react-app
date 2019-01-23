@@ -3,23 +3,36 @@ import UserTableComponent from './userTable';
 import AddUserComponent from './addUser';
 import EditUserComponent from './editUser';
 
+import userAPI from './usersAPI'
+
 
 
 class UsersComponent extends Component {
-    
-    state = { 
-        userData: [
-            {id:0, name: 'User 1', surname: 'Test 1', age: 31 },
-            {id:1, name: 'User 2', surname: 'Test 2', age: 32 },
-            {id:2, name: 'User 3', surname: 'Test 3', age: 33 },
-            {id:3, name: 'User 4', surname: 'Test 4', age: 34 }
-        ],
-        user: {
-            name: '',
-            surname: '',
-            age: ''
-        },
-        edit: false
+    constructor() {
+        super();
+        this.state = { 
+            userData: [],
+            user: {
+                name: '',
+                surname: '',
+                age: ''
+            },
+            edit: false
+        }
+    }
+
+    componentWillMount() {
+        userAPI.getUsers()
+            .then(data => {
+                this.setState({
+                    userData: data
+                })
+            })
+            .catch(err => console.log('error', err));
+    }
+
+    componentWillUnmount() {
+        
     }
 
     addUser = (user) => {
@@ -60,7 +73,6 @@ class UsersComponent extends Component {
             userData: newUserData
         })
     }
-    
 
     render() { 
         return ( 

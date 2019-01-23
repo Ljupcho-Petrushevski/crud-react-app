@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 class AddUserComponent extends Component {
-
-    initialState = { 
-        name: '',
-        surname: '',
-        age: ''
+    constructor(props) {
+        super(props);
+        this.initialState = { 
+            name: '',
+            surname: '',
+            age: ''
+        }
+        this.state = this.initialState;
     }
 
-    state = this.initialState;
 
     handleChange = (event) => {
 

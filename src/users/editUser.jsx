@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 class EditUserComponent extends Component {
+    constructor(props){
+        super(props);
 
-    initialState = { 
-        name: '',
-        surname: '',
-        age: ''
+        this.initialState = { 
+            name: '',
+            surname: '',
+            age: ''
+        }
+        this.state = this.props.user;
     }
 
-    state = this.props.user;
 
     handleChange = (event) => {
         //add name prop to each element and target it's value based on 'event.target.name'
